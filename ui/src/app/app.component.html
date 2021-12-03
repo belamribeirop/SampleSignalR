@@ -1,0 +1,10 @@
+<div class="container">
+  <mat-form-field appearance="outline">
+    <mat-label>Send to</mat-label>
+    <mat-select [(value)]="sendTo">
+      <mat-option *ngFor="let option of options" [value]="option">
+        {{ option }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
