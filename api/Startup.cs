@@ -28,6 +28,7 @@ namespace api
         {
 
             services.AddControllers();
+            services.SignalR();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "api", Version = "v1" });
@@ -53,6 +54,7 @@ namespace api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.Map<ChatHub>("/signalR");
             });
         }
     }
