@@ -23,6 +23,19 @@ namespace api
 
             services.AddControllers();
             services.AddSignalR();
+            services.AddCors(options =>
+          {
+              options.AddDefaultPolicy(builder =>
+              {
+                  builder
+                      .WithOrigins(
+                      "http://localhost:4200")
+                      .AllowCredentials()
+                      .AllowAnyHeader()
+                      .SetIsOriginAllowed(_ => true)
+                      .AllowAnyMethod();
+              });
+          });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "api", Version = "v1" });
@@ -41,6 +54,7 @@ namespace api
 
             app.UseHttpsRedirection();
 
+            app.UseCors();
             app.UseRouting();
 
             app.UseAuthorization();
