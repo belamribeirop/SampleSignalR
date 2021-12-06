@@ -1,3 +1,7 @@
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.SignalR;
+using Models;
+
 namespace Hubs
 {
     public class ChatHub : Hub
