@@ -11,6 +11,7 @@ export class AppComponent {
   sendTo = '';
   message = '';
   options = ['All', 'Groups', 'Users'];
+  groupName = '';
   constructor(public chatService: ChatService) {}
   ngOnInit(): void {
     this.chatService.connect();
@@ -21,4 +22,5 @@ export class AppComponent {
       this.chatService.sendMessageToHub(this.message);
     }
   }
+  JoinGroup() {}
 }

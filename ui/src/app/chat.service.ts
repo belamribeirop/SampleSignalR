@@ -19,11 +19,12 @@ export class ChatService {
     this.startConnection();
     this.addListeners();
   };
-  private buildChatMessage(message: string): ChatMessage {
+  private buildChatMessage(message: string, roomName?: string): ChatMessage {
     return {
       connectionId: this.hubConnection.connectionId!,
       text: message,
       dateTime: new Date(),
+      roomName: roomName,
     };
   }
   public sendMessageToHub(message: string) {
@@ -32,6 +33,19 @@ export class ChatService {
       .invoke('BroadcastAsync', this.buildChatMessage(message))
       .then(() => {
         console.log('message sent successfully to hub');
+      })
+      .catch((err) =>
+        console.log('error while sending a message to hub: ' + err)
+      );
+
+    return from(promise);
+  }
+  public sendMessageToGroup(message: string, roomName: string) {
+    console.log(message);
+    var promise = this.hubConnection
+      .invoke('GroupAsync', this.buildChatMessage(message, roomName))
+      .then(() => {
+        console.log('group message sent successfully to hub');
       })
       .catch((err) =>
         console.log('error while sending a message to hub: ' + err)
@@ -60,6 +74,11 @@ export class ChatService {
   }
   addListeners() {
     this.hubConnection.on('BroadcastMessage', (data: ChatMessage) => {
+      console.log('message received from API Controller');
+      this.messages.unshift(data);
+      console.log(this.messages);
+    });
+    this.hubConnection.on('GroupMessage', (data: ChatMessage) => {
       console.log('message received from API Controller');
       this.messages.unshift(data);
       console.log(this.messages);
