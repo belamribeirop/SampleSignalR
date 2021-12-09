@@ -34,7 +34,7 @@ export class ChatService {
       .then(() => {
         console.log('message sent successfully to hub');
       })
-      .catch((err) =>
+      .catch((err: Error) =>
         console.log('error while sending a message to hub: ' + err)
       );
 
@@ -47,11 +47,24 @@ export class ChatService {
       .then(() => {
         console.log('group message sent successfully to hub');
       })
-      .catch((err) =>
+      .catch((err: Error) =>
         console.log('error while sending a message to hub: ' + err)
       );
 
     return from(promise);
+  }
+  public getInAGroup(groupName: string) {
+    var promise = this.hubConnection
+      .invoke('JoinRoom', {
+        groupName: groupName,
+        connectionId: this.hubConnection.connectionId,
+      })
+      .then(() => {
+        console.log('Joined to Group');
+      })
+      .catch((err: Error) =>
+        console.log('error while join to a group: ' + err)
+      );
   }
 
   private getConnection(): HubConnection {
@@ -68,7 +81,7 @@ export class ChatService {
     this.hubConnection
       .start()
       .then(() => console.log('Connected!'))
-      .catch((error) =>
+      .catch((error: Error) =>
         console.log('Error while establishing signalR connection', error)
       );
   }

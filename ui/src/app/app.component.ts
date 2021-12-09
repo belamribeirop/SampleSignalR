@@ -10,7 +10,7 @@ export class AppComponent {
   title = 'ui';
   sendTo = '';
   message = '';
-  options = ['All', 'Groups', 'Users'];
+  options = ['All', 'Group', 'Users'];
   groupName = '';
   constructor(public chatService: ChatService) {}
   ngOnInit(): void {
@@ -20,7 +20,15 @@ export class AppComponent {
     if (this.sendTo === 'All') {
       console.log(this.message);
       this.chatService.sendMessageToHub(this.message);
+    } else if (this.sendTo === 'Group') {
+      if (this.groupName) {
+        this.chatService.sendMessageToGroup(this.message, this.groupName);
+      } else {
+        console.log('Insira um grupo');
+      }
     }
   }
-  JoinGroup() {}
+  JoinGroup() {
+    this.chatService.getInAGroup(this.groupName);
+  }
 }
