@@ -1,5 +1,7 @@
+import { SendMessagesService } from './services/send-messages.service';
 import { Component } from '@angular/core';
-import { ChatService } from './chat.service';
+import { ConnectionService } from './services/connection.service';
+import { GroupControlService } from './services/group-control.service';
 
 @Component({
   selector: 'app-root',
@@ -12,23 +14,30 @@ export class AppComponent {
   message = '';
   options = ['All', 'Group', 'Users'];
   groupName = '';
-  constructor(public chatService: ChatService) {}
+  constructor(
+    public chatService: ConnectionService,
+    private sendMessagesService: SendMessagesService,
+    private groupControlService: GroupControlService
+  ) {}
   ngOnInit(): void {
     this.chatService.connect();
   }
   Send() {
     if (this.sendTo === 'All') {
       console.log(this.message);
-      this.chatService.sendMessageToHub(this.message);
+      this.sendMessagesService.sendMessageToHub(this.message);
     } else if (this.sendTo === 'Group') {
       if (this.groupName) {
-        this.chatService.sendMessageToGroup(this.message, this.groupName);
+        this.sendMessagesService.sendMessageToGroup(
+          this.message,
+          this.groupName
+        );
       } else {
         console.log('Insira um grupo');
       }
     }
   }
   JoinGroup() {
-    this.chatService.getInAGroup(this.groupName);
+    this.groupControlService.getInAGroup(this.groupName);
   }
 }
