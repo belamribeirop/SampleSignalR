@@ -1,0 +1,15 @@
+<div>
+  <mat-form-field appearance="outline">
+    <mat-label>Send to</mat-label>
+    <mat-select [(value)]="sendTo">
+      <mat-option *ngFor="let option of options" [value]="option">
+        {{ option }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Message</mat-label>
+    <input matInput [(ngModel)]="message" />
+  </mat-form-field>
+  <button mat-button (click)="Send()">Send</button>
+</div>

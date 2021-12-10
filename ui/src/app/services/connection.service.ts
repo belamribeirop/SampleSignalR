@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { MessagePackHubProtocol } from '@microsoft/signalr-protocol-msgpack';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { ChatMessage } from '../types';
 

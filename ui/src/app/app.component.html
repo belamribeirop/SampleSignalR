@@ -1,34 +1,19 @@
 <div class="container">
   <div>
-    <h3>Join a Group</h3>
-    <mat-form-field appearance="outline">
-      <mat-label>Group Name</mat-label>
-      <input matInput [(ngModel)]="groupName" />
-    </mat-form-field>
-    <button mat-button (click)="JoinGroup()">Send</button>
-  </div>
-  <p>
-    -------------------------------------------------------------------------------------------------------------
-  </p>
-  <div>
-    <mat-form-field appearance="outline">
-      <mat-label>Send to</mat-label>
-      <mat-select [(value)]="sendTo">
-        <mat-option *ngFor="let option of options" [value]="option">
-          {{ option }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Message</mat-label>
-      <input matInput [(ngModel)]="message" />
-    </mat-form-field>
-    <button mat-button (click)="Send()">Send</button>
-  </div>
-  <div>
     <div *ngFor="let i of chatService.messages">
       <p>{{ i.connectionId }} - {{ i.dateTime }}</p>
       <p>{{ i.text }}</p>
     </div>
   </div>
+
+  <mat-tab-group>
+    <mat-tab label="Join Group">
+      <app-join-group
+        (sendGroup)="send.setGroupMessage($event)"
+      ></app-join-group>
+    </mat-tab>
+    <mat-tab label="Send Message">
+      <app-send-message #send> </app-send-message>
+    </mat-tab>
+  </mat-tab-group>
 </div>
