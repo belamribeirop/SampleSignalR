@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using Models;
@@ -12,6 +14,33 @@ namespace Hubs
   }
   public class ChatHub : Hub
   {
+    public static readonly List<Tuple<string, string>> _connections = new();
+    public override async Task OnConnectedAsync()
+    {
+      var parameters = Context.GetHttpContext().Request.Query;
+      if (parameters.ContainsKey("username"))
+      {
+        var username = parameters["username"].ToString();
+        var conn = _connections.FirstOrDefault(c => c.Item1 == Context.ConnectionId || c.Item2 == username);
+        if (conn != null)
+        {
+          _connections.Remove(conn);
+        }
+        _connections.Add(new Tuple<string, string>(Context.ConnectionId, username));
+      }
+      await base.OnConnectedAsync();
+    }
+
+    public override async Task OnDisconnectedAsync(Exception exception)
+    {
+      var conn = _connections.FirstOrDefault(p => p.Item1 == Context.ConnectionId);
+      if (conn != null)
+      {
+        _connections.Remove(conn);
+      }
+      await base.OnDisconnectedAsync(exception);
+    }
+
     public async Task BroadcastAsync(Message message)
     {
       await Clients.All.SendAsync("BroadcastMessage", message);
