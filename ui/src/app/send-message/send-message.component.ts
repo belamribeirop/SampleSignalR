@@ -9,7 +9,7 @@ import { SendMessagesService } from '../services/send-messages.service';
 export class SendMessageComponent implements OnInit {
   sendTo = '';
   message = '';
-  options = ['All', 'Group', 'Users'];
+  options = ['Group', 'Users'];
   groupName = '';
   setGroupMessage(value: string) {
     this.groupName = value;
@@ -18,10 +18,7 @@ export class SendMessageComponent implements OnInit {
 
   ngOnInit(): void {}
   Send() {
-    if (this.sendTo === 'All') {
-      console.log(this.message);
-      this.sendMessagesService.sendMessageToHub(this.message);
-    } else if (this.sendTo === 'Group') {
+    if (this.sendTo === 'Group') {
       if (this.groupName) {
         this.sendMessagesService.sendMessageToGroup(
           this.message,

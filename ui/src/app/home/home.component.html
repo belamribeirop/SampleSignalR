@@ -1,0 +1,23 @@
+<div class="container" *ngIf="!connected">
+  <form (submit)="connectOnTheServer()">
+    <mat-form-field appearance="outline">
+      <mat-label>Username</mat-label>
+      <input
+        matInput
+        [(ngModel)]="username"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">
+      Register in the chat
+    </button>
+  </form>
+</div>
+<div class="container" *ngIf="connected">
+  <button mat-raised-button color="primary" (click)="sendMessageToAll()">
+    Enviar message para todos os usuários.
+  </button>
+  <button mat-raised-button color="primary" (click)="sendMessageToOneUser()">
+    Enviar message para um usuário.
+  </button>
+</div>

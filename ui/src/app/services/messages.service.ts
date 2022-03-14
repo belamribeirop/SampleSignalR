@@ -13,6 +13,7 @@ export class MessagesService {
       text: message,
       dateTime: new Date(),
       roomName: roomName,
+      username: this.connectionService.username,
     };
   }
 }

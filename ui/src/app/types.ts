@@ -3,4 +3,5 @@ export type ChatMessage = {
   dateTime: Date;
   connectionId: string;
   roomName?: string;
+  username: string;
 };

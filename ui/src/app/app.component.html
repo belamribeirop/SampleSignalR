@@ -1,19 +1,7 @@
-<div class="container">
-  <div>
-    <div *ngFor="let i of chatService.messages">
-      <p>{{ i.connectionId }} - {{ i.dateTime }}</p>
-      <p>{{ i.text }}</p>
-    </div>
+<router-outlet></router-outlet>
+<div>
+  <div *ngFor="let i of connectionService.messages">
+    <p>{{ i.username }} - {{ i.dateTime }}</p>
+    <p>{{ i.text }}</p>
   </div>
-
-  <mat-tab-group>
-    <mat-tab label="Join Group">
-      <app-join-group
-        (sendGroup)="send.setGroupMessage($event)"
-      ></app-join-group>
-    </mat-tab>
-    <mat-tab label="Send Message">
-      <app-send-message #send> </app-send-message>
-    </mat-tab>
-  </mat-tab-group>
 </div>

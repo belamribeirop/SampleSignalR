@@ -11,7 +11,7 @@ export class SendMessagesService {
     private connectionService: ConnectionService,
     private messagesService: MessagesService
   ) {}
-  public sendMessageToHub(message: string) {
+  public sendBroadcastMessage(message: string) {
     console.log(message);
     var promise = this.connectionService.hubConnection
       .invoke('BroadcastAsync', this.messagesService.buildChatMessage(message))

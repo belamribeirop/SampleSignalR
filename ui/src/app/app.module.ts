@@ -13,9 +13,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { JoinGroupComponent } from './join-group/join-group.component';
 import { SendMessageComponent } from './send-message/send-message.component';
+import { BroadcastComponent } from './broadcast/broadcast.component';
+import { SingleChatComponent } from './single-chat/single-chat.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
-  declarations: [AppComponent, JoinGroupComponent, SendMessageComponent],
+  declarations: [AppComponent, JoinGroupComponent, SendMessageComponent, BroadcastComponent, SingleChatComponent, HomeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

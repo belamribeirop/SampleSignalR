@@ -9,11 +9,13 @@ import { ChatMessage } from '../types';
 export class ConnectionService {
   public hubConnection: HubConnection;
   public messages: ChatMessage[] = [];
-  private connectionUrl = 'https://localhost:5001/signalr';
+  public username: string = '';
+  private connectionUrl = `https://localhost:5001/chatHub?username=${this.username}`;
 
   constructor(private http: HttpClient) {}
 
-  public connect = () => {
+  public connect = (username: string) => {
+    this.username = username;
     this.startConnection();
     this.addListeners();
   };
